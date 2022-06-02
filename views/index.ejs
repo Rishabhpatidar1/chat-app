@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0px;
+      padding: 0px;
+      box-sizing: border-box;
+    }
+
+    html,body{
+      height: 100%;
+      width: 100%;
+    }
+
+    .main{
+      height: 100%;
+      width: 100%;
+      /* background-color: red; */
+    }
+
+    .top{
+      height: 80vh;
+      width: 100%;
+      /* background-color: grey; */
+      border: 2px solid rgb(56, 136, 194);
+      padding: 10px;
+      overflow: auto;
+    }
+    .msgs{
+      height: 50px;
+      padding: 0px 10px;
+      width: 40%;
+      background-color: rgb(17, 76, 96);
+      margin-top: 10px;
+      color: white;
+      display: flex;
+      align-items: center;
+    }
+    h3{
+      font-family: "gilroy";
+      font-weight: 500;
+      text-transform: capitalize;
+    }
+    small{
+      font-family: "gilroy";
+      font-weight: 400;
+      letter-spacing: 1.5px;
+    }
+    .bottom{
+      height: 20vh;
+      width: 100%;
+      /* background-color: green; */
+      position: relative;
+    }
+    textarea{
+      height: 20vh;
+      width: 100%;
+      resize: none;
+      font-family: "gilroy";
+      font-weight: 400;
+      padding: 16px;
+    }
+    .send{
+      position: absolute;
+      bottom: 40%;
+      right: 5%;
+      padding: 8px 30px;
+      background-color: royalblue;
+      color: white;
+      font-family: "gilroy";
+      font-weight: 600;
+      text-transform: capitalize;
+      letter-spacing: 1.4px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .overlay{
+      height: 100%;
+      width: 100%;
+      /* background-color: red; */
+      background-color: rgb(53, 149, 218);
+      position: fixed;
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      /* display: none; */
+    }
+    .one{
+      /* margin-bottom: 40px; */
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50% , 0%);
+      width: 100%;
+      text-align: center;
+    }
+
+    .one h2{
+      font-size: 40px;
+      font-family: "gilroy";
+      font-weight: 500;
+      text-transform: capitalize;
+      color: white;
+    }
+
+    #username{
+      height: 40px;
+      width: 200px;
+      outline: none;
+      padding: 14px;
+      font-family: "gilroy";
+      font-weight: 500;
+      border: none;
+    }
+
+    .enter{
+      padding: 11px 10px;
+      background-color: teal;
+      color: white;
+      font-family: "gilroy";
+      font-weight: 600;
+      text-transform: capitalize;
+      letter-spacing: 1.4px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .online{
+      padding: 10px 26px;
+      position: absolute;
+      top: 2%;
+      right: 2%;
+      background-color: rgb(36, 141, 36);
+      color: white;
+      font-family: "gilroy";
+      font-weight: 500;
+      text-transform: capitalize;
+      border: none;
+      cursor: pointer;
+    }
+
+    .box{
+      height: 80%;
+      /* height: 350px; */
+      width: 350px;
+      background-color: rgb(227, 235, 244);
+      position: absolute;
+      top: 0%;
+      right: 0%;
+      /* right: -350px; */
+      z-index: 99;
+      /* left: 50%; */
+      /* transform: translate(-50% , -50%); */
+      /* box-shadow: 1px 1px 20px 0px rgba(68, 69, 70, 0.347); */
+      transition: all cubic-bezier(0.19, 1, 0.22, 1) 2s;
+      display: none;
+    }
+    .user{
+      height: 50px;
+      width: 100%;
+      /* background-color: red; */
+      font-family: "gilroy";
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      margin-top: 10px;
+      border-bottom: 2px solid teal;
+    }
+
+    .user h3{
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    .user h5{
+      font-weight: 400;
+      text-transform: capitalize;
+      color: rgb(139, 139, 139);
+    }
+
+    .circle{
+      height: 10px;
+      width: 10px;
+      border-radius: 100px;
+      color: white;
+      background-color: green;
+      margin-top: 4px;
+    }
+
+   .right{
+     display: flex;
+     align-items: center;
+    }
+
+    .user h4{
+      margin-right: 10px;
+      font-weight: 300;
+    }
+
+    #icon{
+      position: absolute;
+      top: 3%;
+      font-size: 20px;
+      cursor: pointer;
+      color: green;
+      right: 10%;
+    }
+
+    #close{
+      font-size: 28px;
+      height: 30px;
+      width: 30px;
+      border-radius: 100px;
+      border: 2px solid red;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      bottom: 2%;
+      left: 50%;
+      transform: translate(-50% , 0);
+      color: red;
+      cursor: pointer;
+    }
+
+    .notification{
+      /* width: 160px; */
+      padding: 10px 30px;
+      height: 40px;
+      background-color: #f1f1f1;
+      display: inline-block;
+      position: absolute;
+      top: 70%;
+      left: 50%;
+      transform: translate(-50% , 0%);
+      border-radius: 10px;
+      display: none;
+    }
+
+    .notification h4{
+      font-family: "gilroy";
+      font-weight: 500;
+      color: #444;
+    }
+
+    .notification small{
+      font-weight: 600;
+      color: red;
+    }
+
+  </style>
+</head>
+<body>
+
+  
+  <div class="overlay">
+    <div class="one">
+      <h2>Welcome to the Random chatting app </h2>
+      
+    </div>
+    <div class="two">
+      <input type="text" placeholder="fake name" autocomplete="off" id="username" >
+      <button class="enter">enter the chat</button>
+      
+    </div>
+  </div>
+
+  <div class="notification">
+    <h4> <small></small> has joined the chat</h4>
+  </div>
+  
+  <div class="main">
+    <div class="box">
+      <div class="alag"></div>
+      <i id="close" class="ri-close-line"></i>
+    </div>
+    <div id="top2" class="top">
+      
+    </div>
+    <i id="icon" class="ri-user-fill"></i>
+    <button class="online">online : <small></small> </button>
+    <div class="bottom">
+      <button class="send">send message</button>
+      <textarea name="message"></textarea>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.0/socket.io.min.js" integrity="sha512-pxLMWs4E33rW9tdIhovcCp2dCo9k4Q8eHw7CETjyjdXf4aX6wvsEBq+KdOJJRFALr6FxNoXx+jksgbE74TZjEw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+      var socket = io();
+      var clutter = ""
+      var clutter2 = "";
+
+     document.querySelector(".send").addEventListener("click" , function(){
+       var message = document.querySelector("textarea").value
+       socket.emit("msg" , {msg:message , username : document.querySelector("#username").value})
+       document.querySelector("textarea").value = ""
+     })
+     
+     document.querySelector("textarea").addEventListener("keyup" , function(dets){
+       if(dets.keyCode === 13){
+        var message = document.querySelector("textarea").value
+       socket.emit("msg" , {msg:message , username : document.querySelector("#username").value} )
+       document.querySelector("textarea").value = ""
+       }
+     })
+
+     socket.on("reply" , function(data){
+      clutter += `<div class="msgs"> 
+    <h3> ${data.username} : <small>  ${data.msg} </small> </h3>
+  
+   </div>`
+   document.querySelector(".top").innerHTML = clutter;        
+   var objDiv = document.getElementById("top2");
+   objDiv.scrollTop = objDiv.scrollHeight;
+     })
+
+     document.querySelector(".enter").addEventListener("click" , function(dets){
+       if(document.querySelector("#username").value.length > 0){
+         user = document.querySelector("#username").value;
+         setTimeout(() => {
+           document.querySelector(".notification").style.display = "initial"
+         }, 800);
+         
+         setTimeout(() => {
+           document.querySelector(".notification").style.display = "none"
+          }, 2000 );
+
+         socket.emit("nameofuser" , user)
+         document.querySelector(".overlay").style.display = "none"
+       }
+     })
+
+     socket.on("notify" , function(userkaname){
+       console.log(userkaname)
+      document.querySelector(".notification small").textContent =  userkaname
+     })
+
+     socket.on("online" , function(users){
+      //  console.log(users)
+       document.querySelector(".online small").textContent = users.length ;
+       users.forEach(function(elem){
+         clutter2 +=  `<div class="user">
+       <div class="left">
+     <h3>${elem}</h3>
+     <h5>India</h5>
+      </div>
+      <div class="right">
+    <h4>online</h4>
+    <div class="circle"></div>
+      </div> 
+      </div>`
+      
+       })
+       document.querySelector(".alag").innerHTML = clutter2;
+       clutter2 = ""
+     })
+         
+
+     document.querySelector("#icon").addEventListener("click" , function(){
+       document.querySelector(".box").style.display = "initial"
+     })
+
+     document.querySelector("#close").addEventListener("click" , function(){
+      document.querySelector(".box").style.display = "none"
+     })
+
+
+    
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+var clutter = "";
+var clutter2 = "";
+var username = "default" ; 
+
+
+function msgsender(){
+  socket.emit("msgs" , {name : document.querySelector("#username").value , msgdata : document.querySelector("textarea").value})
+  document.querySelector("textarea").value = ""
+}
+
+
+document.querySelector(".send").addEventListener("click" , function(){
+  msgsender()
+  
+})
+
+socket.on("onlineUser" , function(useronline){
+ document.querySelector(".online small").textContent = useronline.length
+ useronline.forEach(function(name){
+  clutter2+=  `<div class="user">
+    <div class="left">
+    <h3>${name}</h3>
+    <h5>India</h5>
+  </div>
+  <div class="right">
+    <h4>online</h4>
+    <div class="circle"></div>
+  </div> 
+  </div>`
+ })
+ document.querySelector(".box").innerHTML = clutter2
+})
+
+document.querySelector("textarea")
+.addEventListener("keyup" , function(dets){
+  if(dets.keyCode === 13){
+    msgsender()
+  }
+})
+
+
+socket.on("reply" , function(message){
+
+  
+ clutter += `<div class="msgs"> 
+  <h3> ${message.name} : <small>  ${message.msgdata} </small> </h3>
+  
+   </div>`
+   document.querySelector(".top").innerHTML = clutter;        
+   var objDiv = document.getElementById("top2");
+   objDiv.scrollTop = objDiv.scrollHeight;
+
+ 
+})
+
+document.querySelector("#user").addEventListener("click" , function(){
+  document.querySelector(".box").style.display = "initial";
+  document.querySelector(".box").style.right = "0%"
+})
+
+document.querySelector(".enter").addEventListener("click" , function(){
+  if(document.querySelector("#username").value.length>0){
+    var username = document.querySelector("#username").value;
+    socket.emit("users" , username)
+    document.querySelector(".overlay").style.display = "none";
+  }
+}) -->
